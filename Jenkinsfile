@@ -19,6 +19,8 @@ pipeline {
         }
 	stage('Prune Docker System') {
 	    steps {
+		sh "CONT_ID=$(docker ps -q)"
+		sh "docker stop $CONT_ID"
 		sh 'docker system prune -f'
 	    }
 	}
