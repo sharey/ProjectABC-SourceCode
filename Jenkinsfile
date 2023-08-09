@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'slave2' }
+    agent { label 'docker' }
 
     stages {
         stage('Compile Source Code') {
@@ -15,6 +15,28 @@ pipeline {
         stage('Package Source Code') {
             steps {
                 sh 'mvn package'             
+            }
+        }
+	stage('Docker Build an Image and Tag') {
+            steps {
+                sh 'docker build -t edurekaprojectabc:latest .' 
+                sh 'docker tag edurekaprojectabc shraddhaw/edurekaprojectabc:latest'
+                //sh 'docker tag samplewebapp shraddhaw/edurekaprojectabc:${env.BUILD_NUMBER}'
+                
+            }
+        }
+        // Docker pipeline plugin is needed to use DockerHub credentials
+        stage('Publish image to Docker Hub') {
+            steps {
+                withDockerRegistry([ credentialsId: "dockerHub", url: "" ]) {
+                    sh  'docker push shraddhaw/edurekaprojectabc:latest'
+                    //  sh  'docker push shraddhaw/edurekaprojectabc:${env.BUILD_NUMBER}' 
+                }
+            }
+        }
+        stage('Run Docker container on Jenkins Agent') { 
+            steps {
+                sh "docker run -d -p 8003:8080 shraddhaw/edurekaprojectabc"
             }
         }
     }
