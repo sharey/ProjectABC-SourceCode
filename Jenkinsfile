@@ -1,9 +1,6 @@
 pipeline {
-    agent { label 'slave' }
+    agent { label 'slave2' }
 
-    tools {
-        maven "mymaven"
-    }
     stages {
         stage('Compile Source Code') {
             steps {
