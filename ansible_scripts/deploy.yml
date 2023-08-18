@@ -1,0 +1,23 @@
+---
+#Simple Ansible Playbook to pull the Docker image from DockerHub Registry and Run the App in Docker container
+
+- name: Playbook to pull the Docker image from DockerHub Registry and Run the App in Docker container
+  hosts: docker_host
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Stop Running Container
+      command: docker stop projectabc-application
+      ignore_errors: yes
+
+    - name: Remove the Container
+      command: docker rm projectabc-application
+      ignore_errors: yes
+
+    - name: Remove the Docker image
+      command: docker rmi shraddhaw.projectabc-ansible-docker-image:latest
+      ignore_errors: yes 
+
+    - name: Run the Application in Docker Container using Docker image from DockerHub Registry
+      command: docker run -d --name projectabc-application -p 8003:8080 shraddhaw/projectabc-ansible-docker-image:latest

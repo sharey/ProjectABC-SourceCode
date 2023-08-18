@@ -1,0 +1,19 @@
+---
+#Simple Ansible Playbook to clean, build, push the Docker Image to DockerHub Registry
+
+- name: Playbook to clean, build, push the Docker Image to DockerHub Registry
+  hosts: ansible_CN
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Build Docker Image
+      command: docker build -t projectabc-ansible-docker-image:latest .
+      args:
+        chdir: /opt/docker
+
+    - name: Create tag to push image to DockerHub
+      command: docker tag projectabc-ansible-docker-image:latest shraddhaw/projectabc-ansible-docker-image:latest
+
+    - name: Push Docker image to DockerHub Registry
+      command: docker push shraddhaw/projectabc-ansible-docker-image:latest
