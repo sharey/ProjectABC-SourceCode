@@ -16,7 +16,7 @@
       ignore_errors: yes
 
     - name: Remove the Docker image
-      command: docker rmi shraddhaw.projectabc-ansible-docker-image:latest
+      command: docker rmi shraddhaw/projectabc-ansible-docker-image:latest
       ignore_errors: yes 
 
     - name: Run the Application in Docker Container using Docker image from DockerHub Registry
