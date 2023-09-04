@@ -1,7 +1,7 @@
 <html>
 <body>
 <h2>Welcome to ABC technologies</h2>
-<h3>This is updated retail portal with Jenkins, Ansible and Docker Deployment !!</h3>
+<h3>This is updated retail portal with Jenkins, Ansible and Docker Deployment - 4 Sep 23 !!</h3>
 <button name="Add Product" value="Add Product" type="button" onclick="addProduct()">Add Product</button>  
 <script>  
 function addProduct(){  
