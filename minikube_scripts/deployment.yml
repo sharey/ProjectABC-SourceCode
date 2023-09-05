@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: projectabc
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: projectabc
+  template:
+    metadata:
+      labels:
+        app: projectabc
+    spec:
+      containers:
+        - name: projectabc
+          image: shraddhaw/projectabc-ansible-docker-image:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 8080

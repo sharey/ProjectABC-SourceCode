@@ -11,20 +11,29 @@
       ignore_errors: true
 
   tasks:
+    - name: copy files to remote
+      become: true
+      copy:
+        src: /opt/docker
+        dest: /home/ansadmin/minikube-scripts
+        owner: ansadmin
+        group: ansadmin
+        mode: 0755
+
     - name: delete old deployment
-      command: kubectl delete -f /home/ansadmin/kube-scripts/deployment.yml
+      command: kubectl delete -f /home/ansadmin/minikube-scripts/deployment.yml
       ignore_errors: true
 
     - name: delete old service
-      command: kubectl delete -f /home/ansadmin/kube-scripts/service.yml
+      command: kubectl delete -f /home/ansadmin/minikube-scripts/service.yml
       ignore_errors: true
 
     - name: create new deployment
-      command: kubectl apply -f /home/ansadmin/kube-scripts/deployment.yml
+      command: kubectl apply -f /home/ansadmin/minikube-scripts/deployment.yml
 
     - name: create new service
-      command: kubectl apply -f /home/ansadmin/kube-scripts/service.yml
+      command: kubectl apply -f /home/ansadmin/minikube-scripts/service.yml
     
     - name: forward nodeport to container port
-      command: /home/ansadmin/kube-scripts/port-fwd.sh 
+      command: /home/ansadmin/minikube-scripts/port-fwd.sh 
       #command: kubectl port-forward --address 0.0.0.0 svc/projectabc 31000:8080 &
