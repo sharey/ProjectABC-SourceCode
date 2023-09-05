@@ -16,6 +16,5 @@ spec:
       containers:
         - name: projectabc
           image: shraddhaw/projectabc-ansible-docker-image:latest
-          imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 8080
