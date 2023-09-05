@@ -12,7 +12,6 @@
 
   tasks:
     - name: copy files to remote
-      become: true
       copy:
         src: /opt/docker
         dest: /home/ansadmin/minikube-scripts
