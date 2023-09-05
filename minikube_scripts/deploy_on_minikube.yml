@@ -13,7 +13,7 @@
   tasks:
     - name: copy files to remote
       copy:
-        src: /opt/docker
+        src: /opt/docker/minikube_scripts/
         dest: /home/ansadmin/minikube-scripts
         owner: ansadmin
         group: ansadmin
