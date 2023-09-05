@@ -34,5 +34,5 @@
       command: kubectl apply -f /home/ansadmin/minikube-scripts/service.yml
     
     - name: forward nodeport to container port
-      command: /home/ansadmin/minikube-scripts/port-fwd.sh 
-      #command: kubectl port-forward --address 0.0.0.0 svc/projectabc 31000:8080 &
+      #command: /home/ansadmin/minikube-scripts/port-fwd.sh 
+      command: kubectl port-forward --address 0.0.0.0 svc/projectabc 31000:8080 &
