@@ -1,0 +1,30 @@
+---
+- name: Application Deployment on Minikube
+  hosts: kmaster
+  gather_facts: False
+
+  pre_tasks:
+    - name: check the status of minikube
+      command: minikube status
+      register: minikube_status
+      changed_when: false
+      ignore_errors: true
+
+  tasks:
+    - name: delete old deployment
+      command: kubectl delete -f /home/ansadmin/kube-scripts/deployment.yml
+      ignore_errors: true
+
+    - name: delete old service
+      command: kubectl delete -f /home/ansadmin/kube-scripts/service.yml
+      ignore_errors: true
+
+    - name: create new deployment
+      command: kubectl apply -f /home/ansadmin/kube-scripts/deployment.yml
+
+    - name: create new service
+      command: kubectl apply -f /home/ansadmin/kube-scripts/service.yml
+    
+    - name: forward nodeport to container port
+      command: /home/ansadmin/kube-scripts/port-fwd.sh 
+      #command: kubectl port-forward --address 0.0.0.0 svc/projectabc 31000:8080 &
